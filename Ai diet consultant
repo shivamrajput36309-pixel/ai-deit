@@ -1,0 +1,583 @@
+<think>
+The user wants me to create a complete E-Commerce Website project for a fresher frontend developer portfolio. This should include:
+
+1. Multiple pages (Home, About, Products, Product Details, Cart, Login/Register, Contact)
+2. Technologies: HTML5, CSS3, JavaScript, Bootstrap, Tailwind CSS, React.js
+3. Dark/Light Mode
+4. Mobile Responsive
+5. API integration using fake API
+6. Git/GitHub workflow
+7. README.md
+8. PPT content
+9. PDF documentation
+10. All contact info (email, location, mobile)
+
+Let me create a comprehensive project with all these features. I'll use React.js as the main framework with Bootstrap and Tailwind CSS for styling.
+
+Let me structure this properly and provide all the code files.
+</think> Complete E-Commerce Website Project for Fresher Portfolio
+
+I'll create a complete, industry-level E-Commerce website with all the technologies and features you requested.
+
+---
+
+## 📁 Project Folder Structure
+
+```
+ecommerce-portfolio/
+├── public/
+│   ├── index.html
+│   ├── favicon.ico
+│   └── manifest.json
+├── src/
+│   ├── components/
+│   │   ├── Layout/
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   └── Layout.jsx
+│   │   ├── Pages/
+│   │   │   ├── Home.jsx
+│   │   │   ├── About.jsx
+│   │   │   ├── Products.jsx
+│   │   │   ├── ProductDetails.jsx
+│   │   │   ├── Cart.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Register.jsx
+│   │   │   └── Contact.jsx
+│   │   ├── UI/
+│   │   │   ├── Button.jsx
+│   │   │   ├── Input.jsx
+│   │   │   ├── Loader.jsx
+│   │   │   ├── ProductCard.jsx
+│   │   │   ├── Toast.jsx
+│   │   │   └── ThemeToggle.jsx
+│   │   └── context/
+│   │       ├── AuthContext.jsx
+│   │       ├── CartContext.jsx
+│   │       └── ThemeContext.jsx
+│   ├── hooks/
+│   │   ├── useAuth.js
+│   │   └── useCart.js
+│   ├── services/
+│   │   ├── api.js
+│   │   └── fakeApi.js
+│   ├── data/
+│   │   └── products.js
+│   ├── styles/
+│   │   └── index.css
+│   ├── App.jsx
+│   └── main.jsx
+├── package.json
+├── vite.config.js
+├── tailwind.config.js
+├── postcss.config.js
+├── index.html
+└── README.md
+```
+
+---
+
+## 1️⃣ Package Configuration Files
+
+### 📦 package.json
+
+```json
+{
+  "name": "ecommerce-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Modern E-Commerce Website - Fresher Portfolio Project",
+  "author": "Shivam Rajput",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.0",
+    "axios": "^1.6.2",
+    "framer-motion": "^10.16.16",
+    "react-icons": "^4.12.0",
+    "react-toastify": "^9.1.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0",
+    "vite": "^5.0.8"
+  }
+}
+```
+
+### ⚙️ vite.config.js
+
+```javascript
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 3000,
+  },
+});
+```
+
+### 🎨 tailwind.config.js
+
+```javascript
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#fef2f2',
+          100: '#fee2e2',
+          200: '#fecaca',
+          300: '#fca5a5',
+          400: '#f87171',
+          500: '#ef4444',
+          600: '#dc2626',
+          700: '#b91c1c',
+          800: '#991b1b',
+          900: '#7f1d1d',
+        },
+        dark: {
+          100: '#1a1a1a',
+          200: '#171717',
+          300: '#0a0a0a',
+        }
+      },
+      fontFamily: {
+       Poppins: ['Poppins', 'sans-serif'],
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-in',
+        'slide-up': 'slideUp 0.5s ease-out',
+        'bounce-in': 'bounceIn 0.6s ease-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        bounceIn: {
+          '0%': { transform: 'scale(0.9)', opacity: '0' },
+          '50%': { transform: 'scale(1.02)' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+      },
+    },
+  },
+  plugins: [],
+}
+```
+
+### 🖌️ postcss.config.js
+
+```javascript
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+```
+
+### 🌐 index.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ShopEase - Modern E-Commerce Website for All Your Shopping Needs" />
+    <meta name="author" content="Shivam Rajput" />
+    <meta name="keywords" content="ecommerce, shopping, online store, electronics, fashion" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    
+    <title>ShopEase - Your Ultimate Shopping Destination</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+```
+
+---
+
+## 2️⃣ Main Entry Files
+
+### 🚀 src/main.jsx
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './styles/index.css';
+
+// Toast Notifications CSS
+import 'react-toastify/dist/ReactToastify.css';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+### 🎯 src/App.jsx
+
+```javascript
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import { ThemeProvider } from './context/ThemeContext';
+import { AuthProvider } from './context/AuthContext';
+import { CartProvider } from './context/CartContext';
+import Layout from './components/Layout/Layout';
+import Home from './components/Pages/Home';
+import About from './components/Pages/About';
+import Products from './components/Pages/Products';
+import ProductDetails from './components/Pages/ProductDetails';
+import Cart from './components/Pages/Cart';
+import Login from './components/Pages/Login';
+import Register from './components/Pages/Register';
+import Contact from './components/Pages/Contact';
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AuthProvider>
+        <CartProvider>
+          <Router>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/products/:id" element={<ProductDetails />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/contact" element={<Contact />} />
+              </Routes>
+            </Layout>
+            <ToastContainer
+              position="bottom-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+          </Router>
+        </CartProvider>
+      </AuthProvider>
+    </ThemeProvider>
+  );
+}
+
+export default App;
+```
+
+---
+
+## 3️⃣ Context Files (State Management)
+
+### 🌙 src/context/ThemeContext.jsx
+
+```javascript
+import React, { createContext, useState, useEffect, useContext } from 'react';
+
+const ThemeContext = createContext();
+
+export const ThemeProvider = ({ children }) => {
+  const [isDark, setIsDark] = useState(() => {
+    // Check localStorage or system preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      return savedTheme === 'dark';
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (isDark) {
+      root.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDark]);
+
+  const toggleTheme = () => setIsDark(!isDark);
+
+  return (
+    <ThemeContext.Provider value={{ isDark, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+export const useTheme = () => useContext(ThemeContext);
+```
+
+### 🔐 src/context/AuthContext.jsx
+
+```javascript
+import React, { createContext, useState, useEffect, useContext } from 'react';
+
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Check for stored user
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    setLoading(false);
+  }, []);
+
+  const login = (userData) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+  };
+
+  const register = (userData) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout, register, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => useContext(AuthContext);
+```
+
+### 🛒 src/context/CartContext.jsx
+
+```javascript
+import React, { createContext, useState, useEffect, useContext } from 'react';
+
+const CartContext = createContext();
+
+export const CartProvider = ({ children }) => {
+  const [cart, setCart] = useState(() => {
+    const storedCart = localStorage.getItem('cart');
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+  const [cartTotal, setCartTotal] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    setCartCount(cart.reduce((acc, item) => acc + item.quantity, 0));
+    setCartTotal(cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
+  }, [cart]);
+
+  const addToCart = (product, quantity = 1) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((item) => item.id === product.id);
+      if (existingItem) {
+        return prevCart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        );
+      }
+      return [...prevCart, { ...product, quantity }];
+    });
+  };
+
+  const removeFromCart = (productId) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  };
+
+  const updateQuantity = (productId, quantity) => {
+    if (quantity < 1) {
+      removeFromCart(productId);
+      return;
+    }
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === productId ? { ...item, quantity } : item
+      )
+    );
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  return (
+    <CartContext.Provider
+      value={{
+        cart,
+        cartTotal,
+        cartCount,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+};
+
+export const useCart = () => useContext(CartContext);
+```
+
+---
+
+## 4️⃣ Layout Components
+
+### 📐 src/components/Layout/Navbar.jsx
+
+```javascript
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../../context/AuthContext';
+import { useCart } from '../../context/CartContext';
+import { useTheme } from '../../context/ThemeContext';
+import ThemeToggle from '../UI/ThemeToggle';
+
+const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const { user, logout } = useAuth();
+  const { cartCount } = useCart();
+  const { isDark } = useTheme();
+  const navigate = useNavigate();
+
+  // Handle scroll effect
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
+  return (
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? isDark
+            ? 'bg-dark-200 shadow-lg'
+            : 'bg-white shadow-lg'
+          : 'bg-transparent'
+      }`}
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2">
+            <div className="w-10 h-10 rounded-lg bg-primary-500 flex items-center justify-center">
+              <i className="bi bi-bag text-white text-xl"></i>
+            </div>
+            <span className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-800'}`}>
+              Shop<span className="text-primary-500">Ease</span>
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
+            <Link
+              to="/"
+              className={`font-medium transition-colors hover:text-primary-500 ${
+                isDark ? 'text-gray-300' : 'text-gray-700'
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              to="/products"
+              className={`font-medium transition-colors hover:text-primary-500 ${
+                isDark ? 'text-gray-300' : 'text-gray-700'
+              }`}
+            >
+              Products
+            </Link>
+            <Link
+              to="/about"
+              className={`font-medium transition-colors hover:text-primary-500 ${
+                isDark ? 'text-gray-300' : 'text-gray-700'
+              }`}
+            >
+              About
+            </Link>
+            <Link
+              to="/contact"
+              className={`font-medium transition-colors hover:text-primary-500 ${
+                isDark ? 'text-gray-300' : 'text-gray-700'
+              }`}
+            >
+              Contact
+            </Link>
+          </div>
+
+          {/* Right Side Icons */}
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            
+            {/* Cart Icon */}
+            <Link to="/cart" className={`relative p-2 rounded-full transition-colors hover:bg-primary-50 ${
+              isDark ? 'text-gray-300' : 'text-gray-700'
+            }`}>
+              <
